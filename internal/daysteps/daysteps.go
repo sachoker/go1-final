@@ -28,11 +28,17 @@ func (ds *DaySteps) Parse(datastring string) (err error) {
 	if err != nil {
 		return fmt.Errorf("error parsing steps: %w", err)
 	}
+	if steps <= 0 {
+		return errors.New("steps must be > 0")
+	}
 	ds.Steps = steps
 
 	duration, err := time.ParseDuration(parts[1])
 	if err != nil {
 		return fmt.Errorf("error parsing duration: %w", err)
+	}
+	if duration <= 0 {
+		return errors.New("duration must be > 0")
 	}
 	ds.Duration = duration
 
@@ -46,7 +52,7 @@ func (ds DaySteps) ActionInfo() (string, error) {
 		return "", fmt.Errorf("ошибка вычисления калорий: %w", err)
 	}
 
-	result := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.",
+	result := fmt.Sprintf("Количество шагов: %d.\nДистанция составила %.2f км.\nВы сожгли %.2f ккал.\n",
 		ds.Steps,
 		distance,
 		calories,
