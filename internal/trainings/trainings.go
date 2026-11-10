@@ -55,9 +55,9 @@ func (t Training) ActionInfo() (string, error) {
 	var calcErr error
 	var calories float64
 	switch t.TrainingType {
-	case "бег":
+	case "Бег":
 		calories, calcErr = spentenergy.RunningSpentCalories(t.Steps, t.Weight, t.Height, t.Duration)
-	case "ходьба":
+	case "Ходьба":
 		calories, calcErr = spentenergy.WalkingSpentCalories(t.Steps, t.Weight, t.Height, t.Duration)
 	default:
 		return "", errors.New("wrong training type")
